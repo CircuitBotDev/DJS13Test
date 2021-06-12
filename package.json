@@ -1,0 +1,21 @@
+{
+  "name": "servercleaner",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "datetime": "0.0.3",
+    "discord.js": "git+https://github.com/discordjs/discord.js.git",
+    "pretty-ms": "^7.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "hastebin": "^0.2.1"
+  }
+}

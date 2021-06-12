@@ -1,0 +1,55 @@
+{
+  "_args": [
+    [
+      "figlet-promises@1.0.1",
+      "C:\\Users\\avija\\OneDrive\\Desktop\\mainwork"
+    ]
+  ],
+  "_from": "figlet-promises@1.0.1",
+  "_id": "figlet-promises@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-mLa4KnGLe1v+BXPdxtImqAMkqS3ENxtaLlOAEm1CDQLO6uBuw4dqUCiNEmNKj7ejX8GvJhBeHmFkqPJPmx0rZg==",
+  "_location": "/figlet-promises",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "figlet-promises@1.0.1",
+    "name": "figlet-promises",
+    "escapedName": "figlet-promises",
+    "rawSpec": "1.0.1",
+    "saveSpec": null,
+    "fetchSpec": "1.0.1"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/figlet-promises/-/figlet-promises-1.0.1.tgz",
+  "_spec": "1.0.1",
+  "_where": "C:\\Users\\avija\\OneDrive\\Desktop\\mainwork",
+  "author": {
+    "name": "JAGUAR#0240"
+  },
+  "bugs": {
+    "url": "https://github.com/JAGUARAVI/figlet-promises/issues"
+  },
+  "description": "A new promise based figlet for modern times!",
+  "homepage": "https://github.com/JAGUARAVI/figlet-promises#readme",
+  "keywords": [
+    "figlet",
+    "promises",
+    "new",
+    "asscii"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "figlet-promises",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JAGUARAVI/figlet-promises.git"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "version": "1.0.1"
+}
