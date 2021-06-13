@@ -15,7 +15,7 @@ module.exports = class Resolve {
 
     async member(search, guild) {
         if (!search || typeof search !== 'string') return null;
-        const user = await this.client.resolveUser(search);
+        const user = await this.user(search);
         if (!user) return null;
         return await guild.members.fetch(user).catch(() => { });
     }

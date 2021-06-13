@@ -122,6 +122,14 @@ module.exports = class {
                     embed
                 });
             }
+
+            if(command.permissions.serverOwnerOnly && ctx.source.member.id !== ctx.source.guild.ownerID) {
+                let embed = await this.getErrorEmbed('This is a server owner only command!');
+                return ctx.send({
+                    embeds: [embed],
+                    embed
+                });
+            }
     
             if (command.permissions.clientPerms) {
                 if (!message.guild.me.permissions.has(command.permissions.clientPerms) || !message.channel.permissionsFor(ctx.source.guild.me).has(command.permissions.clientPerms)) {

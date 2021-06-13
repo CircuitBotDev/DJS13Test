@@ -34,7 +34,7 @@ module.exports = class extends Client {
         this.events =  new Collection();
         this.utils = Utils;
         this.log = Utils.logger;
-        this.resolve = Resolve;
+        this.resolve = new Resolve(this);
         this.CommandHandler = new CommandHandler(this);
     }
 
@@ -71,7 +71,7 @@ module.exports = class extends Client {
         let target = this.application;
         if(guild) target = guild;
 
-        return await Promise.all(this.commands.filter(cmd => cmd.config.commandType != 1 && !cmd.config.nsfw && !cmd.permissions.serverOwnerOnly && !cmd.permissions.botOwnerOnly).map((command) => {
+        return await Promise.all(this.commands.filter(cmd => cmd.config.commandType != 1 && !cmd.config.nsfw && !cmd.permissions.botOwnerOnly).map((command) => {
             let cmd =  {
                     name: command.config.name,
                     description: command.config.description,

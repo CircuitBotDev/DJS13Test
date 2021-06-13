@@ -59,7 +59,7 @@ module.exports = class Event extends BaseEvent {
             isCommand: true,
             client,
             send,
-            reply: send.bind(this),
+            reply: send.bind(interaction),
             paginate
         }
 
@@ -67,12 +67,20 @@ module.exports = class Event extends BaseEvent {
          * Todo: Interaction checks
          */
 
-         if(command.permissions.botOwnerOnly && !client.owners.includes(ctx.source.user.id)) {
+        if(command.permissions.botOwnerOnly && !client.owners.includes(ctx.source.user.id)) {
             let embed = await this.getErrorEmbed('This is a owner only command!');
             return ctx.send({
                 embeds: [embed],
                 embed,
                 ephemeral: true,
+            });
+        }
+
+        if(command.permissions.serverOwnerOnly && ctx.source.member.id !== ctx.source.guild.ownerID) {
+            let embed = await this.getErrorEmbed('This is a server owner only command!');
+            return ctx.send({
+                embeds: [embed],
+                embed
             });
         }
 
