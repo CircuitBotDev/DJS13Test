@@ -118,16 +118,14 @@ module.exports = class {
             if(command.permissions.botOwnerOnly && !client.owners.includes(ctx.source.member.id)) {
                 let embed = await this.getErrorEmbed('This is a owner only command!');
                 return ctx.send({
-                    embeds: [embed],
-                    embed
+                    embeds: [embed]
                 });
             }
 
             if(command.permissions.serverOwnerOnly && ctx.source.member.id !== ctx.source.guild.ownerID) {
                 let embed = await this.getErrorEmbed('This is a server owner only command!');
                 return ctx.send({
-                    embeds: [embed],
-                    embed
+                    embeds: [embed]
                 });
             }
     
@@ -137,8 +135,7 @@ module.exports = class {
                         `Sorry, but i need the following permisions to perform this command -\n${command.permissions.clientPerms.map(p => `> \`- ${p}\``).join('\n')}`, true
                     );
                     return ctx.send({
-                        embeds: [embed],
-                        embed
+                        embeds: [embed]
                     }).catch(() => ctx.source.member.send(embed));
                 }
             }
@@ -150,8 +147,7 @@ module.exports = class {
                         true                   
                     );
                     return ctx.send({
-                        embeds: [embed],
-                        embed
+                        embeds: [embed]
                     }).catch(() => ctx.source.member.send(embed));
                 }
             }
@@ -159,8 +155,7 @@ module.exports = class {
             if (command.config.args && !args.length && command.config.usage) {
                 let embed = await this.getErrorEmbed(`You didn't provide any arguments, ${ctx.source.member}!\nThe proper usage would be: \n\`\`\`html\n${command.config.usage}\n\`\`\``, true)
                 return ctx.send({
-                    embeds: [embed],
-                    embed
+                    embeds: [embed]
                 });
             }
     
@@ -168,7 +163,6 @@ module.exports = class {
                 let embed = await this.getErrorEmbed("Sorry, i can\'t run nsfw commands on a non-nsfw channel.");
                 return ctx.send({
                     embeds: [embed],
-                    embed,
                 });
             }
     
@@ -183,7 +177,7 @@ module.exports = class {
                     let embed = await this.getErrorEmbed(`Please wait **${ms(timeLeft)}** before reusing the command again.`);
                     return ctx.send({
                         embeds: [embed],
-                        embed
+
                     });
                 }
             }
@@ -201,7 +195,6 @@ module.exports = class {
         } catch (e) {
             let embed = await this.getErrorEmbed(`Something went wrong executing that command\nError Message: \`${e.message ? e.message : e}\``, true);
             ctx.reply({
-                embed,
                 embeds: [embed],
                 allowedMentions: { repliedUser: false }
             });

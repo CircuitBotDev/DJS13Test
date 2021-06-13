@@ -58,8 +58,12 @@ module.exports = class Ping extends BaseCommand {
         if (!ctx.args[0] || (ctx.isCommand && !ctx.source.options.get('text') ?. value)) {
             let embed = new MessageEmbed().setColor("RANDOM").setTitle("List of available fonts").setDescription(`\`\`\`${
                 Array.from(figlet.fonts.keys()).join(", ")
-            }\`\`\``)
-            return ctx.send({embeds: [embed], embed, ephemeral: true});
+            }\`\`\``);
+            
+            return ctx.send({
+                embeds: [embed],
+                ephemeral: true
+            });
         }
         let txt = ctx.isCommand ? figlet.write(ctx.source.options.get('text').value, font) : ctx.args.join(" ").split("\n").map(txt => figlet.write(txt, font)).join('');
 
@@ -91,7 +95,6 @@ module.exports = class Ping extends BaseCommand {
 
         ctx.reply({
             embeds: [embed],
-            embed,
             allowedMentions: {
                 repliedUser: false
             }

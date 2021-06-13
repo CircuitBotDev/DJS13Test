@@ -71,7 +71,6 @@ module.exports = class Event extends BaseEvent {
             let embed = await this.getErrorEmbed('This is a owner only command!');
             return ctx.send({
                 embeds: [embed],
-                embed,
                 ephemeral: true,
             });
         }
@@ -80,7 +79,7 @@ module.exports = class Event extends BaseEvent {
             let embed = await this.getErrorEmbed('This is a server owner only command!');
             return ctx.send({
                 embeds: [embed],
-                embed
+                ephemeral: true,
             });
         }
 
@@ -91,7 +90,6 @@ module.exports = class Event extends BaseEvent {
                 );
                 return ctx.send({
                     embeds: [embed],
-                    embed,
                     ephemeral: true,
                 }).catch(() => ctx.source.user.send(embed));
             }
@@ -105,7 +103,6 @@ module.exports = class Event extends BaseEvent {
                 );
                 return ctx.send({
                     embeds: [embed],
-                    embed,
                     ephemeral: true,
                 }).catch(() => ctx.source.user.send(embed));
             }
@@ -122,7 +119,6 @@ module.exports = class Event extends BaseEvent {
                 let embed = await this.getErrorEmbed(`Please wait **${ms(timeLeft)}** before reusing the command again.`);
                 return ctx.send({
                     embeds: [embed],
-                    embed,
                     ephemeral: true,
                 });
             }
@@ -135,8 +131,9 @@ module.exports = class Event extends BaseEvent {
                 setTimeout(() => timestamps.delete(ctx.source.user.id), cooldownAmount);
             }
         } catch (e) {
+            let embed = await this.getErrorEmbed(`Something went wrong executing that command\nError Message: \`${e.message ? e.message : e}\``, true)
             ctx.reply({
-                embed: await this.getErrorEmbed(`Something went wrong executing that command\nError Message: \`${e.message ? e.message : e}\``, true),
+                embeds: [embed],
                 allowedMentions: { repliedUser: false },
                 ephemeral: true,
             });

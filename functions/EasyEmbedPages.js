@@ -185,7 +185,6 @@ module.exports = class EasyEmbedPages {
         if (this.page > this.pages.length) throw new Error("Page number greater than total pages!");
 
         this.message = await this.channel.send({
-            embed: this.pages[this.page],
             embeds: [this.pages[this.page]],
             components: [this.generateButtons(this.pages.length, this.page)],
             delete: false
@@ -219,7 +218,6 @@ module.exports = class EasyEmbedPages {
                 if (this.page === 0) break;
                 this.page = 0;
                 this.message.edit({
-                    embed: this.pages[this.page],
                     embeds: [this.pages[this.page]],
                     components: [this.generateButtons(this.pages.length, this.page)]
                 });
@@ -228,7 +226,6 @@ module.exports = class EasyEmbedPages {
                 if(this.pages.length <= 1) break;
                 if (this.page > 0) --this.page;
                 this.message.edit({
-                    embed: this.pages[this.page],
                     embeds: [this.pages[this.page]],
                     components: [this.generateButtons(this.pages.length, this.page)]
                 });
@@ -236,7 +233,6 @@ module.exports = class EasyEmbedPages {
             case '3':
                 if (this.page < this.pages.length-1) ++this.page;
                 this.message.edit({
-                    embed: this.pages[this.page],
                     embeds: [this.pages[this.page]],
                     components: [this.generateButtons(this.pages.length, this.page)]
                 });
@@ -246,7 +242,6 @@ module.exports = class EasyEmbedPages {
                 if (this.page === (this.pages.length - 1)) break;
                 this.page = this.pages.length - 1;
                 this.message.edit({
-                    embed: this.pages[this.page],
                     embeds: [this.pages[this.page]],
                     components: [this.generateButtons(this.pages.length, this.page)]
                 });

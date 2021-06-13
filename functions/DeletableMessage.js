@@ -26,7 +26,11 @@ module.exports = class DeletableMessage{
         if(user) this.user = user;
 
         this.message = await this.channel.send(
-            Object.assign({components: [this.generateButton()]}, {delete: false}, this.content)
+            Object.assign(
+                {components: [this.generateButton()]},
+                {delete: false},
+                this.content
+            )
         );
 
         this.collector = this.message.createMessageComponentInteractionCollector((i) => condition(i));
