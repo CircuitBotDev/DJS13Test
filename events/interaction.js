@@ -67,7 +67,7 @@ module.exports = class Event extends BaseEvent {
          * Todo: Interaction checks
          */
 
-        if(command.permissions.botOwnerOnly && !client.owners.includes(ctx.source.user.id)) {
+        if(command.permissions.botOwnerOnly && !ctx.client.owners.includes(ctx.source.user.id)) {
             let embed = await this.getErrorEmbed('This is a owner only command!');
             return ctx.send({
                 embeds: [embed],
@@ -114,7 +114,7 @@ module.exports = class Event extends BaseEvent {
         const cooldownAmount = (command.config.cooldown || 3) * 1000;
         if (timestamps.has(ctx.source.user.id)) {
             const expirationTime = timestamps.get(ctx.source.user.id) + cooldownAmount;
-            if (now < expirationTime && !client.owners.includes(message.author.id)) {
+            if (now < expirationTime && !ctx.client.owners.includes(ctx.source.user.id)) {
                 const timeLeft = Math.floor(expirationTime - now);
                 let embed = await this.getErrorEmbed(`Please wait **${ms(timeLeft)}** before reusing the command again.`);
                 return ctx.send({
