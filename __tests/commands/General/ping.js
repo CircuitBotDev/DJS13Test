@@ -48,7 +48,6 @@ module.exports = class Ping extends BaseCommand{
 
         return m.edit(
             {   
-                embed,
                 embeds: [embed]
             }
         );
