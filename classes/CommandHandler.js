@@ -8,7 +8,7 @@ class CommandHandler extends Middleware {
     }
 
     async executeMiddleware(middlewares, data, next) {
-        const composition = await middlewares.reduce((next, fn) => async v => {
+        const composition = await middlewares.reduceRight((next, fn) => async v => {
             // collect next data
             let info = data;
             await fn(this.client, info, next)
