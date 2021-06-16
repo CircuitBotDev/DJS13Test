@@ -1,11 +1,11 @@
 const BaseEvent = require('../classes/base/BaseEvent.js');
 
 module.exports = class Event extends BaseEvent {
-    constructor(){
+    constructor() {
         super('ready');
     }
 
-    async run(client){
+    async run(client) {
         /*await client.utils.wait(1000);
         await Promise.all(
             client.guilds.cache.map(async guild => {

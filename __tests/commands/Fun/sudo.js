@@ -41,16 +41,16 @@ module.exports = class Ping extends BaseCommand {
     }
 
     async run(ctx) {
-        let member = ctx.isCommand ? await ctx.source.guild.members.fetch(ctx.source.options.get('user') ?. value) : await ctx.client.resolve.member(ctx.args.shift(), ctx.source.guild);
-        let text = ctx.isCommand ? ctx.source.options.get('text') ?. value : ctx.args.join(' ');
+        let member = ctx.isCommand ? await ctx.source.guild.members.fetch(ctx.source.options.get('user')?.value) : await ctx.client.resolve.member(ctx.args.shift(), ctx.source.guild);
+        let text = ctx.isCommand ? ctx.source.options.get('text')?.value : ctx.args.join(' ');
 
-        if(!member){ 
+        if (!member) {
             let embed = new MessageEmbed()
                 .setDescription('Please specify a valid member to sudo.')
                 .setColor('RED');
 
             return await ctx.reply(
-                {   
+                {
                     embed,
                     embeds: [embed],
                     ephemeral: true,
@@ -61,22 +61,22 @@ module.exports = class Ping extends BaseCommand {
             );
         }
 
-        if(!text){ 
+        if (!text) {
             let embed = new MessageEmbed()
                 .setDescription('Please specify the text to send.')
                 .setColor('RED');
 
             return await ctx.reply(
-                {   
+                {
                     embed,
                     embeds: [embed],
-                    ephemeral: true 
+                    ephemeral: true
                 }
             );
         }
 
         let webhook = await ctx.source.channel.fetchWebhooks().then((webhooks) => webhooks.find((webhook) => webhook.owner.id === ctx.client.user.id));
-        if(!webhook) webhook = await ctx.source.channel.createWebhook(ctx.client.user.username, {
+        if (!webhook) webhook = await ctx.source.channel.createWebhook(ctx.client.user.username, {
             avatar: ctx.client.user.avatarURL()
         });
 
@@ -88,7 +88,7 @@ module.exports = class Ping extends BaseCommand {
                 parse: []
             }
         }).then(async (data) => {
-            if(ctx.isCommand) await ctx.reply({
+            if (ctx.isCommand) await ctx.reply({
                 content: "Message Sent!",
                 ephemeral: true
             });

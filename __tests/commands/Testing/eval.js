@@ -1,16 +1,16 @@
-const {BaseCommand} = require('../../..');
-const {MessageEmbed} = require('discord.js');
+const { BaseCommand } = require('../../..');
+const { MessageEmbed } = require('discord.js');
 const ms = require('pretty-ms');
 
 const clean = text => {
-    if (typeof(text) === "string")
-      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    if (typeof (text) === "string")
+        return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
     else
         return text;
 }
 
-module.exports = class extends BaseCommand{
-    constructor(){
+module.exports = class extends BaseCommand {
+    constructor() {
         super({
             config: {
                 name: "eval",
@@ -35,14 +35,14 @@ module.exports = class extends BaseCommand{
             },
             permissions: {
                 userPerms: [],
-                clientPerms: ['SEND_MESSAGES','EMBED_LINKS'],
+                clientPerms: ['SEND_MESSAGES', 'EMBED_LINKS'],
                 serverOwnerOnly: false,
                 botOwnerOnly: true
             }
         });
     };
 
-    async run(ctx){
+    async run(ctx) {
         let output, status = true;
         const now = Date.now();
 
@@ -51,8 +51,8 @@ module.exports = class extends BaseCommand{
             if (evaled instanceof Promise) evaled = await evaled;
 
             if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-        
-            output = clean(evaled).replace(ctx.client.token,'[TOKEN REMOVED]');
+
+            output = clean(evaled).replace(ctx.client.token, '[TOKEN REMOVED]');
         } catch (err) {
             status = false;
             output = require("util").inspect(err);
@@ -61,10 +61,10 @@ module.exports = class extends BaseCommand{
         const elapsed = Date.now() - now;
 
         ctx.paginate(
-            {   
+            {
                 color: status ? 'GREEN' : 'RED',
                 author: {
-                    name: "Evaled Code", 
+                    name: "Evaled Code",
                     iconURL: status ? "https://iili.io/BxVFZF.png" : "https://iili.io/BxV3j1.png"
                 },
                 description: output,

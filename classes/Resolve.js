@@ -1,5 +1,5 @@
 module.exports = class Resolve {
-    constructor(client){
+    constructor(client) {
         this.client = client;
     }
 

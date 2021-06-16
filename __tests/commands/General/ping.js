@@ -1,7 +1,7 @@
-const {BaseCommand} = require('../../..');
-const {MessageEmbed} = require('discord.js');
+const { BaseCommand } = require('../../..');
+const { MessageEmbed } = require('discord.js');
 
-module.exports = class Ping extends BaseCommand{
+module.exports = class Ping extends BaseCommand {
     constructor() {
         super({
             config: {
@@ -18,24 +18,24 @@ module.exports = class Ping extends BaseCommand{
             },
             permissions: {
                 userPerms: [],
-                clientPerms: ['SEND_MESSAGES','EMBED_LINKS'],
+                clientPerms: ['SEND_MESSAGES', 'EMBED_LINKS'],
                 serverOwnerOnly: false,
                 botOwnerOnly: false
             }
         });
     }
 
-    async run(ctx){
+    async run(ctx) {
         let time = Date.now();
         let apiLatency = ctx.client.ws.ping;
-        
+
         let m = await ctx.send({
             content: "Pong!",
         });
-        
+
         let msgLatency = Date.now() - time;
 
-        if(ctx.flags.includes("noembed")){
+        if (ctx.flags.includes("noembed")) {
             return m.edit(`Roundtrip Latency: ${msgLatency} ms\nApi Latency: ${apiLatency} ms`);
         }
 
@@ -43,11 +43,11 @@ module.exports = class Ping extends BaseCommand{
             .setColor('BLUE')
             .setTimestamp()
             .setAuthor('Ping', ctx.client.user.avatarURL())
-            .addField(`Roundtrip`,`${msgLatency} ms`)
-            .addField(`Websocket`,`${apiLatency} ms`);
+            .addField(`Roundtrip`, `${msgLatency} ms`)
+            .addField(`Websocket`, `${apiLatency} ms`);
 
         return m.edit(
-            {   
+            {
                 embeds: [embed]
             }
         );

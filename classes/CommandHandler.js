@@ -1,8 +1,8 @@
 const Middleware = require('./base/Middleware');
 const DefaultHandler = require('./DefaultHandler');
 
-class CommandHandler extends Middleware{
-    constructor(client){
+class CommandHandler extends Middleware {
+    constructor(client) {
         super();
         this.client = client;
     }
@@ -12,7 +12,7 @@ class CommandHandler extends Middleware{
             // collect next data
             let info = data;
             await fn(this.client, info, next)
-        }, next);       
+        }, next);
         composition(data);
     }
 }

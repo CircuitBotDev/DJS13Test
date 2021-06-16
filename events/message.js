@@ -1,9 +1,9 @@
 const BaseEvent = require('../classes/base/BaseEvent');
 const Client = require('../classes/Client');
-const {Message} = require('discord.js');
+const { Message } = require('discord.js');
 
-module.exports = class extends BaseEvent{
-    constructor(){
+module.exports = class extends BaseEvent {
+    constructor() {
         super('message');
     }
 
@@ -13,7 +13,7 @@ module.exports = class extends BaseEvent{
      * @param {Message} message 
      * @returns 
      */
-    async run(client,message){
+    async run(client, message, run = true) {
         if (message.partial) await message.fetch();
         if (message.author.bot) return;
 
@@ -22,6 +22,6 @@ module.exports = class extends BaseEvent{
 
         if (!message.member) await message.member.fetch();
 
-        client.CommandHandler.run(message);
+        if (run) client.CommandHandler.run(message);
     }
 }

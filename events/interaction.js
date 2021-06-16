@@ -1,6 +1,6 @@
 const BaseEvent = require('../classes/base/BaseEvent.js');
 const Client = require('../classes/Client');
-const {CommandInteraction, MessageEmbed, Collection} = require('discord.js');
+const { CommandInteraction, MessageEmbed, Collection } = require('discord.js');
 const EasyEmbedPages = require('../functions/EasyEmbedPages');
 const DeletableMessage = require('../functions/DeletableMessage');
 const ms = require('pretty-ms');
@@ -8,16 +8,16 @@ const ms = require('pretty-ms');
 const cooldowns = new Collection();
 
 module.exports = class Event extends BaseEvent {
-    constructor(){
+    constructor() {
         super('interaction');
     }
 
-    getErrorEmbed(msg, large = false){
+    getErrorEmbed(msg, large = false) {
         let embed = new MessageEmbed()
-        .setColor('RED')
-        .setDescription((!large ? ':x:  ' : '') + (msg ?? "Error"))
+            .setColor('RED')
+            .setDescription((!large ? ':x:  ' : '') + (msg ?? "Error"))
 
-        if(large) embed.setAuthor('Error', 'https://i.imgur.com/M6CN1Ft.png')
+        if (large) embed.setAuthor('Error', 'https://i.imgur.com/M6CN1Ft.png')
 
         return embed;
     }
@@ -28,27 +28,27 @@ module.exports = class Event extends BaseEvent {
      * @param {CommandInteraction} interaction 
      * @returns 
      */
-    async run(client, interaction){
+    async run(client, interaction) {
         if (!interaction.isCommand()) return;
-        if(!interaction.guild) return;
+        if (!interaction.guild) return;
 
         const command = client.commands.get(interaction.commandName)
-        if(!command) return;
+        if (!command) return;
 
-        async function _reply(content){
+        async function _reply(content) {
             const func = (interaction.replied ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction));
             await func(content);
             return !content.ephemeral ? await interaction.fetchReply() : null;
         }
 
         async function send(content) {
-            let msg = await content.ephemeral || content.delete == false ? _reply.bind(this)(content) : new DeletableMessage({send: _reply}, content).start(interaction.member ?? null);
+            let msg = await content.ephemeral || content.delete == false ? _reply.bind(this)(content) : new DeletableMessage({ send: _reply }, content).start(interaction.member ?? null);
             return msg;
         }
-        
-        async function paginate(options, fn){
-            const paginator = new EasyEmbedPages({send}, options, fn);
-            await paginator.start({user: interaction.user});
+
+        async function paginate(options, fn) {
+            const paginator = new EasyEmbedPages({ send }, options, fn);
+            await paginator.start({ user: interaction.user });
             return paginator;
         }
 
@@ -67,7 +67,7 @@ module.exports = class Event extends BaseEvent {
          * Todo: Interaction checks
          */
 
-        if(command.permissions.botOwnerOnly && !ctx.client.owners.includes(ctx.source.user.id)) {
+        if (command.permissions.botOwnerOnly && !ctx.client.owners.includes(ctx.source.user.id)) {
             let embed = await this.getErrorEmbed('This is a owner only command!');
             return ctx.send({
                 embeds: [embed],
@@ -75,7 +75,7 @@ module.exports = class Event extends BaseEvent {
             });
         }
 
-        if(command.permissions.serverOwnerOnly && ctx.source.member.id !== ctx.source.guild.ownerID) {
+        if (command.permissions.serverOwnerOnly && ctx.source.member.id !== ctx.source.guild.ownerID) {
             let embed = await this.getErrorEmbed('This is a server owner only command!');
             return ctx.send({
                 embeds: [embed],
@@ -99,7 +99,7 @@ module.exports = class Event extends BaseEvent {
             if (!ctx.source.member.permissions.has(command.permissions.userPerms) || !ctx.source.channel.permissionsFor(ctx.source.user).has(command.permissions.userPerms)) {
                 let embed = await this.getErrorEmbed(
                     `Sorry, but you don't have enough permissions to execute this command. You need the following permissions -\n${command.permissions.userPerms.map(p => `> \`- ${p}\``).join('\n')}`,
-                    true                   
+                    true
                 );
                 return ctx.send({
                     embeds: [embed],
@@ -126,7 +126,7 @@ module.exports = class Event extends BaseEvent {
 
         try {
             const success = await command.run(ctx);
-            if(success !== false) {
+            if (success !== false) {
                 timestamps.set(ctx.source.user.id, now);
                 setTimeout(() => timestamps.delete(ctx.source.user.id), cooldownAmount);
             }

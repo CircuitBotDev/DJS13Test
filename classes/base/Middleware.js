@@ -1,4 +1,4 @@
-const {EventEmitter} = require('events');
+const { EventEmitter } = require('events');
 
 class Middleware {
     constructor() {
@@ -14,7 +14,7 @@ class Middleware {
             // collect next data
             info = data;
             await fn(info, next)
-        }, next);       
+        }, next);
         composition(data);
     }
 

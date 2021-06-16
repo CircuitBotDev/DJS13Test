@@ -1,5 +1,5 @@
-const {BaseCommand} = require('../../..');
-const {MessageEmbed} = require('discord.js');
+const { BaseCommand } = require('../../..');
+const { MessageEmbed } = require('discord.js');
 const hastebin = require('hastebin');
 const Figlet = require('../../functions/figlet-promises');
 const figlet = new Figlet();
@@ -45,21 +45,20 @@ module.exports = class Ping extends BaseCommand {
     }
 
     async run(ctx) {
-        let font = ctx.isCommand ? ctx.source.options.get('font') ?. value : ctx.args[0];
+        let font = ctx.isCommand ? ctx.source.options.get('font')?.value : ctx.args[0];
 
         if (figlet.fonts.has(font)) {
-            if (!ctx.isCommand) 
+            if (!ctx.isCommand)
                 ctx.args.shift();
-            
-        } else 
-            font = 'standard';
-        
 
-        if (!ctx.args[0] || (ctx.isCommand && !ctx.source.options.get('text') ?. value)) {
-            let embed = new MessageEmbed().setColor("RANDOM").setTitle("List of available fonts").setDescription(`\`\`\`${
-                Array.from(figlet.fonts.keys()).join(", ")
-            }\`\`\``);
-            
+        } else
+            font = 'standard';
+
+
+        if (!ctx.args[0] || (ctx.isCommand && !ctx.source.options.get('text')?.value)) {
+            let embed = new MessageEmbed().setColor("RANDOM").setTitle("List of available fonts").setDescription(`\`\`\`${Array.from(figlet.fonts.keys()).join(", ")
+                }\`\`\``);
+
             return ctx.send({
                 embeds: [embed],
                 ephemeral: true
@@ -80,18 +79,16 @@ module.exports = class Ping extends BaseCommand {
 
         if (ctx.flags.includes('noembed')) {
             return ctx.reply({
-                    content: `\`\`\`${
-                    txt.length > 2000 ? ctx.client.utils.general.shorten(txt, 2000) : txt
-                }\`\`\``,
+                content: `\`\`\`${txt.length > 2000 ? ctx.client.utils.general.shorten(txt, 2000) : txt
+                    }\`\`\``,
                 allowedMentions: {
                     parse: []
                 }
             });
         }
 
-        let embed = new MessageEmbed().setColor('RANDOM').setTitle("Here Is Your ASCII Text").setDescription(`\`\`\`${
-            txt.length > 1974 ? ctx.client.utils.general.shorten(txt, 1974) : txt
-        }\`\`\``).addField("Download", `[Click Here](${hasteURL})`).setFooter("Long ASCII Text Can Be Displayed DiStOrTeD... Open download if it is!");
+        let embed = new MessageEmbed().setColor('RANDOM').setTitle("Here Is Your ASCII Text").setDescription(`\`\`\`${txt.length > 1974 ? ctx.client.utils.general.shorten(txt, 1974) : txt
+            }\`\`\``).addField("Download", `[Click Here](${hasteURL})`).setFooter("Long ASCII Text Can Be Displayed DiStOrTeD... Open download if it is!");
 
         ctx.reply({
             embeds: [embed],

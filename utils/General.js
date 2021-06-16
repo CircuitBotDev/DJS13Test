@@ -75,7 +75,7 @@ module.exports = {
         let what, a = arguments, L = a.length, ax;
         while (L > 1 && arr.length) {
             what = a[--L];
-            while ((ax= arr.indexOf(what)) !== -1) {
+            while ((ax = arr.indexOf(what)) !== -1) {
                 arr.splice(ax, 1);
             }
         }
@@ -88,4 +88,16 @@ module.exports = {
         let a = j.map(x => x.charAt(0).toUpperCase() + x.slice(1))
         return a.join(" ")
     },
+
+    async awaitReply(message, question, limit = 60000, obj = false) {
+        const filter = m => m.author.id === message.author.id;
+        await message.channel.send(question);
+        try {
+            const collected = await message.channel.awaitMessages(filter, { max: 1, time: limit, errors: ['time'] });
+            if (obj) return collected.first();
+            return collected.first().content;
+        } catch (e) {
+            return false;
+        }
+    }
 }

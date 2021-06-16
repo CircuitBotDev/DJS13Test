@@ -1,14 +1,14 @@
-const {Client, Collection, Intents, Structures} = require('discord.js');
+const { Client, Collection, Intents, Structures } = require('discord.js');
 const fs = require('fs').promises;
-const {join} = require('path');
+const { join } = require('path');
 
 const Utils = require('../utils'),
     CommandHandler = require('./CommandHandler'),
     BaseCommand = require('./base/BaseCommand'),
     BaseEvent = require('./base/BaseEvent'),
-    Resolve = require('./Resolve'); 
+    Resolve = require('./Resolve');
 
-const {Message : ExtendedMessage} = require('./structures');
+const { Message: ExtendedMessage } = require('./structures');
 Structures.extend('Message', () => ExtendedMessage);
 
 const defaultOptions = {
@@ -26,12 +26,12 @@ module.exports = class extends Client {
         super(
             Object.assign({}, defaultOptions, options)
         );
-        
+
         this.debug = options.debug ? true : false;
         this.owners = Array.from(options.owners) || [];
         this.commands = new Collection();
         this.applicationCommands = new Collection();
-        this.events =  new Collection();
+        this.events = new Collection();
         this.utils = Utils;
         this.log = Utils.logger;
         this.resolve = new Resolve(this);
@@ -45,7 +45,7 @@ module.exports = class extends Client {
                 const props = new Command();
                 props.config.category = category;
                 this.commands.set(props.config.name, props);
-                if(this.debug) this.log.debug(`Loaded Command - ${props.config.name}`);
+                if (this.debug) this.log.debug(`Loaded Command - ${props.config.name}`);
             }
             return false;
         } catch (e) {
@@ -67,27 +67,27 @@ module.exports = class extends Client {
         }
     }
 
-    async registerApplicationCommands(guild){
+    async registerApplicationCommands(guild) {
         let target = this.application;
-        if(guild) target = guild;
+        if (guild) target = guild;
 
         return await Promise.all(this.commands.filter(cmd => cmd.config.commandType != 1 && !cmd.config.nsfw && !cmd.permissions.botOwnerOnly).map((command) => {
-            let cmd =  {
-                    name: command.config.name,
-                    description: command.config.description,
-                    options: command.config.commandOptions,
-                    defaultPermission: true
+            let cmd = {
+                name: command.config.name,
+                description: command.config.description,
+                options: command.config.commandOptions,
+                defaultPermission: true
             };
             return cmd;
-        
+
         })).then(async (data) => {
             return await target?.commands.set(data).then((result) => this.applicationCommands.set(guild ? guild.id : '0', result));
         });
     }
 
-    async unregisterApplicationCommands(guild){
+    async unregisterApplicationCommands(guild) {
         let target = this.application;
-        if(guild) target = guild;
+        if (guild) target = guild;
 
         return await target.commands.set([]);
     }
@@ -101,8 +101,8 @@ module.exports = class extends Client {
                     const instance = new Event();
                     instance.run = instance.run.bind(instance, this);
                     this.on(instance.name, instance.run);
-                    this.events.set(instance.name,instance);
-                    if(this.debug) this.log.debug(`Loaded Event - ${instance.name}`);
+                    this.events.set(instance.name, instance);
+                    if (this.debug) this.log.debug(`Loaded Event - ${instance.name}`);
                 }
             }
         }
@@ -110,7 +110,7 @@ module.exports = class extends Client {
 
     init() {
         return Promise.all([
-            this.registerEvents(join(__dirname,'..','events'))
+            this.registerEvents(join(__dirname, '..', 'events'))
         ]);
     }
 }

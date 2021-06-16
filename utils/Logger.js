@@ -1,7 +1,7 @@
 const format = require('dateformat');
 const chalk = require('chalk');
 
-const timestamp = () => format(new Date,'yyyy-mm-dd HH:MM:ss');
+const timestamp = () => format(new Date, 'yyyy-mm-dd HH:MM:ss');
 const parse = (t) => typeof t !== "string" ? `\n${require("util").inspect(t)}` : t;
 
 module.exports = (text, str = "Server") => {
