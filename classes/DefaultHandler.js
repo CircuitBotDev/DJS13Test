@@ -98,6 +98,8 @@ module.exports = class {
             return paginator;
         }
 
+        message.user = message.author;
+
         const ctx = {
             source: message,
             flags,
