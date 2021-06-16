@@ -10,7 +10,7 @@ class Middleware {
     }
 
     async executeMiddleware(middlewares, data, next) {
-        const composition = await middlewares.reduceRight(async (next, fn) => async v => {
+        const composition = await middlewares.reduce((next, fn) => async v => {
             // collect next data
             info = data;
             await fn(info, next)
