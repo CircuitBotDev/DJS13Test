@@ -37,6 +37,10 @@ module.exports = class extends Client {
         this.resolve = new Resolve(this);
         this.TextCommandHandler = new CommandHandler(this);
         this.ApplicationCommandHandler = new CommandHandler(this);
+
+        if(!options.disableDefaultReady) this.on('ready', () => {
+            this.log.success(`${client.user.tag} ready!`);
+        })
     }
 
     registerCommand(dir, category) {
