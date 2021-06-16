@@ -35,7 +35,8 @@ module.exports = class extends Client {
         this.utils = Utils;
         this.log = Utils.logger;
         this.resolve = new Resolve(this);
-        this.CommandHandler = new CommandHandler(this);
+        this.TextCommandHandler = new CommandHandler(this);
+        this.ApplicationCommandHandler = new CommandHandler(this);
     }
 
     registerCommand(dir, category) {

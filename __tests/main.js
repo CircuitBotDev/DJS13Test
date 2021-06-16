@@ -14,7 +14,7 @@ const client = new Client({
 
 (async () => {
     client.DefaultHandler = new DefaultHandler(client);
-    client.CommandHandler.use(client.DefaultHandler.handle.bind(client.DefaultHandler));
+    client.TextCommandHandler.use(client.DefaultHandler.handle.bind(client.DefaultHandler));
     await client.init();
     await client.registerCommands(join(__dirname, 'commands'));
     client.login(require('./config').token);

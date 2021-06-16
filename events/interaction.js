@@ -32,6 +32,8 @@ module.exports = class Event extends BaseEvent {
         if (!interaction.isCommand()) return;
         if (!interaction.guild) return;
 
+        await client.ApplicationCommandHandler.run(interaction);
+
         const command = client.commands.get(interaction.commandName)
         if (!command) return;
 

@@ -22,6 +22,6 @@ module.exports = class extends BaseEvent {
 
         if (!message.member) await message.member.fetch();
 
-        if (run) client.CommandHandler.run(message);
+        if (run) await client.CommandHandler.run(message);
     }
 }
