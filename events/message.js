@@ -14,6 +14,7 @@ module.exports = class extends BaseEvent {
      * @returns 
      */
     async run(client, message, run = true) {
+        if (!message) return;
         if (message.partial) await message.fetch();
         if (message.author.bot) return;
 
