@@ -38,13 +38,24 @@ module.exports = class Event extends BaseEvent {
         if (!command) return;
 
         async function _reply(content) {
-            const func = (interaction.replied ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction));
-            await func(content);
-            return !content.ephemeral ? await interaction.fetchReply() : null;
+            let replied = interaction.replied;
+            const func = (replied ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction));
+            const sent = await func(content);
+
+            if(replied) return sent;
+
+            if (content.ephemeral) {
+                return {
+                    edit: interaction.editReply.bind(interaction),
+                    delete: interaction.deleteReply.bind(interaction)
+                }
+            }
+            
+            return await interaction.fetchReply();
         }
 
         async function send(content) {
-            let msg = await content.ephemeral || content.delete == false ? _reply.bind(this)(content) : new DeletableMessage({ send: _reply }, content).start(interaction.member ?? null);
+            let msg = await content.ephemeral || content.delete == false ? _reply.bind(this)(content) : new DeletableMessage({ send: _reply.bind(this) }, content).start(interaction.member ?? null);
             return msg;
         }
 
