@@ -1,15 +1,15 @@
-const BaseEvent = require('../classes/base/BaseEvent.js');
-const Client = require('../classes/Client');
+const BaseEvent = require('easy-slash-commandhandler/classes/base/BaseEvent');
+const Client = require('easy-slash-commandhandler/classes/Client');
 const { CommandInteraction, MessageEmbed, Collection } = require('discord.js');
-const EasyEmbedPages = require('../functions/EasyEmbedPages');
-const DeletableMessage = require('../functions/DeletableMessage');
+const EasyEmbedPages = require('easy-slash-commandhandler/functions/EasyEmbedPages');
+const DeletableMessage = require('easy-slash-commandhandler/functions/DeletableMessage');
 const ms = require('pretty-ms');
 
 const cooldowns = new Collection();
 
 module.exports = class Event extends BaseEvent {
     constructor() {
-        super('interaction');
+        super('interactionCreate');
     }
 
     getErrorEmbed(msg, large = false) {

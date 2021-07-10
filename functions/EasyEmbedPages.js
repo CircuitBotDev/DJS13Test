@@ -45,7 +45,7 @@ module.exports = class EasyEmbedPages {
         if (size <= 1) return new Discord.MessageActionRow()
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('5')
+                    .setCustomId('5')
                     .setStyle('DANGER')
                     .setEmoji('<:trash:852511333165563915>')
             );
@@ -53,21 +53,21 @@ module.exports = class EasyEmbedPages {
         else if (size <= 2) return new Discord.MessageActionRow()
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('2')
+                    .setCustomId('2')
                     .setStyle('PRIMARY')
                     .setEmoji('<:previous:852515728514744340>')
                     .setDisabled(currentPage == 0)
             )
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('3')
+                    .setCustomId('3')
                     .setStyle('PRIMARY')
                     .setEmoji('<:next:852515302231375902>')
                     .setDisabled(currentPage == 1)
             )
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('5')
+                    .setCustomId('5')
                     .setStyle('DANGER')
                     .setEmoji('<:trash:852511333165563915>')
             );
@@ -75,35 +75,35 @@ module.exports = class EasyEmbedPages {
         else return new Discord.MessageActionRow()
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('1')
+                    .setCustomId('1')
                     .setStyle('PRIMARY')
                     .setEmoji('<:rewind:852515586068185088>')
                     .setDisabled(currentPage == 0)
             )
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('2')
+                    .setCustomId('2')
                     .setStyle('PRIMARY')
                     .setEmoji('<:previous:852515728514744340>')
                     .setDisabled(currentPage == 0)
             )
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('3')
+                    .setCustomId('3')
                     .setStyle('PRIMARY')
                     .setEmoji('<:next:852515302231375902>')
                     .setDisabled(currentPage == size - 1)
             )
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('4')
+                    .setCustomId('4')
                     .setStyle('PRIMARY')
                     .setEmoji('<:fastforward:852515213080395816>')
                     .setDisabled(currentPage == size - 1)
             )
             .addComponents(
                 new Discord.MessageButton()
-                    .setCustomID('5')
+                    .setCustomId('5')
                     .setStyle('DANGER')
                     .setEmoji('<:trash:852511333165563915>')
             );
@@ -190,7 +190,7 @@ module.exports = class EasyEmbedPages {
             delete: false
         });
 
-        this.collector = this.message.createMessageComponentInteractionCollector((i) => condition(i), { time: this.time });
+        this.collector = this.message.createMessageComponentCollector((i) => condition(i), { time: this.time });
 
         this.collector.on('collect', this._handleReaction.bind(this));
     }

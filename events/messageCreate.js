@@ -1,10 +1,10 @@
-const BaseEvent = require('../classes/base/BaseEvent');
-const Client = require('../classes/Client');
+const BaseEvent = require('easy-slash-commandhandler/classes/base/BaseEvent');
+const Client = require('easy-slash-commandhandler/classes/Client');
 const { Message } = require('discord.js');
 
 module.exports = class extends BaseEvent {
     constructor() {
-        super('message');
+        super('messageCreate');
     }
 
     /**
@@ -15,6 +15,7 @@ module.exports = class extends BaseEvent {
      */
     async run(client, message, run = true) {
         if (!message) return;
+        message.replies = [];
         if (message.partial) await message.fetch();
         if (message.author.bot) return;
 

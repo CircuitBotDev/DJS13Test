@@ -14,7 +14,7 @@ module.exports = class DeletableMessage {
         return new MessageActionRow()
             .addComponents(
                 new MessageButton()
-                    .setCustomID('5')
+                    .setCustomId('5')
                     .setStyle('DANGER')
                     .setEmoji('<:trash:852511333165563915>')
             );
@@ -33,7 +33,7 @@ module.exports = class DeletableMessage {
             )
         );
 
-        this.collector = this.message.createMessageComponentInteractionCollector((i) => condition(i));
+        this.collector = this.message.createMessageComponentCollector((i) => condition(i));
         this.collector.on('collect', this._handleReaction.bind(this));
 
         return this.message;

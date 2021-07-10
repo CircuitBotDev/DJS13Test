@@ -1,4 +1,4 @@
-const { Client, Collection, Intents, Structures } = require('discord.js');
+const { Client, Collection, Intents, Structures, Message } = require('discord.js');
 const fs = require('fs').promises;
 const { join } = require('path');
 
@@ -8,8 +8,8 @@ const Utils = require('../utils'),
     BaseEvent = require('./base/BaseEvent'),
     Resolve = require('./Resolve');
 
-const { Message: ExtendedMessage } = require('./structures');
-Structures.extend('Message', () => ExtendedMessage);
+//const ExtendedMessage = require('./structures/Message'); //rip structures
+//Structures.extend('Message', () => ExtendedMessage); //rip structures
 
 const defaultOptions = {
     partials: ['USER', 'GUILD_MEMBER', 'MESSAGE', 'CHANNEL', 'REACTION'],
