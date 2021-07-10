@@ -45,7 +45,7 @@ module.exports = class {
      * @param {Message} message 
      * @param {Function} next 
      */
-    async handle(client, message, next, defaultChecks = true) {
+    async handle(client, message, defaultChecks = true) {
 
         if (message.author.bot) return;
 
@@ -202,8 +202,6 @@ module.exports = class {
             });
             Utils.logger.error(e);
         }
-
-        next();
     }
 }
 
