@@ -38,7 +38,7 @@ module.exports = class extends Client {
         this.TextCommandHandler = new CommandHandler(this);
         this.ApplicationCommandHandler = new CommandHandler(this);
 
-        if(!options.disableDefaultReady) this.on('ready', () => {
+        if (!options.disableDefaultReady) this.on('ready', () => {
             this.log.success(`${client.user.tag} ready!`);
         })
     }
@@ -97,7 +97,8 @@ module.exports = class extends Client {
         return await target.commands.set([]);
     }
 
-    async registerEvents(dir) {
+    async registerEvents(dir, target) {
+        if (!target) target = this;
         const files = await fs.readdir(dir);
         for (const file of files) {
             if (file.endsWith('.js')) {
@@ -105,9 +106,9 @@ module.exports = class extends Client {
                 if (Event.prototype instanceof BaseEvent) {
                     const instance = new Event();
                     instance.run = instance.run.bind(instance, this);
-                    this.on(instance.name, instance.run);
-                    this.events.set(instance.name, instance);
-                    if (this.debug) this.log.debug(`Loaded Event - ${instance.name}`);
+                    target.on(instance.name, instance.run);
+                    target.events?.set(instance.name, instance);
+                    if (this.debug) this.log.debug(`Loaded ${target == this ? 'Client' : someClassInstance.constructor.name ?? ''} Event - ${instance.name}`);
                 }
             }
         }
