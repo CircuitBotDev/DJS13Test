@@ -15,14 +15,16 @@ module.exports = class extends BaseEvent {
      */
     async run(client, message, run = true) {
         if (!message) return;
-        message.replies = [];
-        if (message.partial) await message.fetch();
-        if (message.author.bot) return;
 
-        if (message.channel.type === 'dm') return client.emit('directMessage', message);
+        Reflect.defineProperty(message, 'replies', { value: [] });
+
+        if (message.partial) await message.fetch();
+        if (message.channel.type === 'DM') return client.emit('directMessage', message);
+        if (message.webhookId) return client.emit('webhookMessage', message);
+        
         if (!message.guild) return;
 
-        if (!message.member) await message.member.fetch();
+        if (!message.member) await message.member?.fetch();
 
         await client.TextCommandHandler.run(message);
     }

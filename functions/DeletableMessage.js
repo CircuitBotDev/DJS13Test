@@ -33,13 +33,13 @@ module.exports = class DeletableMessage {
             )
         );
 
-        this.collector = this.message.createMessageComponentCollector((i) => condition(i));
-        this.collector.on('collect', this._handleReaction.bind(this));
+        this.collector = this.message.createMessageComponentCollector();
+        this.collector.on('collect', this._handleInteraction.bind(this));
 
         return this.message;
     }
 
-    async _handleReaction(interaction) {
+    async _handleInteraction(interaction) {
         if (interaction.user.id != this.user.id) {
             return await interaction.reply({
                 embeds: [

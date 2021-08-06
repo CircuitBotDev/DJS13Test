@@ -14,7 +14,7 @@ module.exports = class {
         this.checks = new Middleware();
 
         this.client.on('messageDelete', async (message) => {
-            message.replies.map(async (r) => {
+            message.replies?.map(async (r) => {
                 await message.channel.messages.cache.get(r)?.delete().catch(() => { });
             });
         })

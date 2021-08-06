@@ -39,13 +39,12 @@ module.exports = class Event extends BaseEvent {
 
         async function _reply(content) {
             let replied = interaction.replied;
-            const func = (replied ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction));
+            const func = (replied ? interaction.editReply.bind(interaction) : interaction.reply.bind(interaction));
             const sent = await func(content);
-
-            if(replied) return sent;
 
             if (content.ephemeral) {
                 return {
+                    ...content,
                     edit: interaction.editReply.bind(interaction),
                     delete: interaction.deleteReply.bind(interaction)
                 }

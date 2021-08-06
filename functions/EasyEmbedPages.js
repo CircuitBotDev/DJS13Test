@@ -190,17 +190,16 @@ module.exports = class EasyEmbedPages {
             delete: false
         });
 
-        this.collector = this.message.createMessageComponentCollector((i) => condition(i), { time: this.time });
+        this.collector = this.message.createMessageComponentCollector({ time: this.time, componentType: 'BUTTON' });
 
-        this.collector.on('collect', this._handleReaction.bind(this));
+        this.collector.on('collect', this._handleInteraction.bind(this));
     }
 
     /**
      * Reaction handing function - the function which does the magic of changing the embed!
-     * @param {Discord.MessageReaction} reaction 
-     * @param {Discord.User} user 
+     * @param {Discord.ButtonInteraction} interaction 
      */
-    async _handleReaction(interaction) {
+    async _handleInteraction(interaction) {
         if (interaction.user.id != this.user.id) {
             return await interaction.reply({
                 embeds: [
@@ -212,7 +211,7 @@ module.exports = class EasyEmbedPages {
             });
         }
 
-        switch (interaction.customID) {
+        switch (interaction.customId) {
             case '1':
                 if (this.pages.length <= 1) break;
                 if (this.page === 0) break;

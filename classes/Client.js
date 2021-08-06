@@ -1,4 +1,4 @@
-const { Client, Collection, Intents, Structures, Message } = require('discord.js');
+const { Client, Collection, Intents, Message } = require('discord.js');
 const fs = require('fs').promises;
 const { join } = require('path');
 
@@ -98,6 +98,7 @@ module.exports = class extends Client {
     }
 
     async registerEvents(dir, target) {
+        let defaultTarget = target == undefined;
         if (!target) target = this;
         const files = await fs.readdir(dir);
         for (const file of files) {
@@ -108,7 +109,7 @@ module.exports = class extends Client {
                     instance.run = instance.run.bind(instance, this);
                     target.on(instance.name, instance.run);
                     target.events?.set(instance.name, instance);
-                    if (this.debug) this.log.debug(`Loaded ${target == this ? 'Client' : someClassInstance.constructor.name ?? ''} Event - ${instance.name}`);
+                    if (this.debug) this.log.debug(`Loaded ${defaultTarget ? 'Client' : target.constructor.name ?? ''} Event - ${instance.name}`);
                 }
             }
         }
